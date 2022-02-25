@@ -13,6 +13,7 @@ seed = input("Type your best guess at your password. ")
 seed_dict ={}
 no_dups={""}
 index_count =0
+print("Use ~ to remove spaces. Ie. Hello~world --> Helloworld ")
 for char in seed:    
     possable_chars = str(input("Please provide possable characters for"+" "+ char+" "))
     seed_dict[index_count]= possable_chars
@@ -27,11 +28,14 @@ if save_to_file == "Y" or save_to_file == "y":
 # wright to text file?
     file = open("pass_vars.txt", "w")
     for word in word_list:
-        #print(word)
+        word.replace('~', '')
         file.write(word + '\n')
     file.close()
 for word in word_list:
     print(word)
     print(counter ,"--of--", str(len(word_list)))
-    os.system("sudo -s diskutil corestorage  unlockVolume "+Disk_ID+" -passphrase "+word)
+    word.replace('~', '')
+    # select between corestorage and apfs
+    #os.system("sudo -s diskutil corestorage  unlockVolume "+Disk_ID+" -passphrase "+word)
+    os.system("sudo -s diskutil apfs  unlockVolume "+Disk_ID+" -passphrase "+word)
     counter=counter+1
