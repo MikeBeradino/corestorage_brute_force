@@ -28,14 +28,16 @@ if save_to_file == "Y" or save_to_file == "y":
 # wright to text file?
     file = open("pass_vars.txt", "w")
     for word in word_list:
-        word.replace('~', '')
+        word = word.replace('~', '')
         file.write(word + '\n')
     file.close()
+
 for word in word_list:
+    word = word.replace('~', '')
     print(word)
     print(counter ,"--of--", str(len(word_list)))
-    word.replace('~', '')
     # select between corestorage and apfs
-    #os.system("sudo -s diskutil corestorage  unlockVolume "+Disk_ID+" -passphrase "+word)
-    os.system("sudo -s diskutil apfs  unlockVolume "+Disk_ID+" -passphrase "+word)
+    os.system("sudo -s diskutil corestorage  unlockVolume "+Disk_ID+" -passphrase "+word)
+    #os.system("sudo -s diskutil apfs  unlockVolume "+Disk_ID+" -passphrase "+word)
     counter=counter+1
+
